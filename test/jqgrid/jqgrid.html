@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" type="text/css" href="./main.css" />
+</head>
+<body>
+    <table id="Grid"></table>
+    <table id="gridTable"></table>
+    
+    <button id="add">add</button>
+    <button id="call">call</button>
+    <button id="alwaysCall">always call</button>
+</body>
+<script type="text/javascript" src="./jquery-1.7.2.min.js"></script>
+<script type="text/javascript" src="./grid.base.js"></script>
+<script type="text/javascript" src="./jquery.fmatter.js"></script>
+<script type="text/javascript">
+    $(document).ready(function(){
+
+        $('#call').on('click', call)
+
+        $('#alwaysCall').on('click',function(){
+            var i=0;
+            setInterval(function(){
+                i++
+                if(i<20) {
+                call();
+                } 
+            },100);
+        })
+
+        function call() {
+        $.ajax({
+            url: 'https://api.github.com',
+            contentType: "application/json; charset=utf-8",
+            success: function (reuslt) {
+                console.log(result)
+                $(document).ajaxStop(function(){
+                console.log('3333')
+             })
+       
+            }
+        })
+        // $.ajax({
+        //     url: 'https://api.github.com',
+        //     contentType: "application/json; charset=utf-8",
+        //     success: function (reuslt) {
+        //         console.log(result)
+        //     }
+        // })
+        // $.ajax({
+        //     url: 'https://api.github.com',
+        //     contentType: "application/json; charset=utf-8",
+        //     success: function (reuslt) {
+        //         console.log(result)
+        //     }
+        // })
+        console.log('1111')
+        }
+
+
+        // $(document).ajaxStop(function(){
+        //     console.log('3333')
+        // })
+       
+
+        // var mydata = [
+        //     {id: 10, name: "Oleg"},
+        //     {id: 20, name: "Mike"}
+        // ];
+        // $("#Grid").jqGrid({
+        //     datatype: "local",
+        //     data: mydata,
+        //     height: 'auto',
+        //     autowidth: true,
+        //     colNames: ['ID', 'Name'],
+        //     colModel: [
+        //         {name: 'id', index: 'id', width: 60, sorttype: "int", key: true},
+        //         {name: 'name', index:'name', width: 90}
+        //     ],
+        //     caption: "Test",
+        //     gridview: true // !!! improve the performance
+        // });
+        var testData = [
+            {id: 10,
+             name: "Oleg",
+             description:'test001',
+              importSettings:{
+                importType: 'mask'
+            },
+            lastModifiedDate: '1234567'
+        },
+            {id: 20, 
+              name: "Mike",
+              description:'test001', 
+               importSettings:{
+                importType: 'dddd'
+            },
+            lastModifiedDate: '1234567999'
+            }
+        ];
+
+        var result = {data: testData};
+        var grid = $('#gridTable').jqGrid({
+            datatype: 'local',
+            data: testData,
+            autoencode: true,
+            emptyDataCaption: 'emptyDataCaption',
+            height: 'auto',
+            autowidth: true,
+            rowNum: testData.length,
+            jsonReader: {
+                repeatitems: false,
+                root: 'data'
+            },
+            colNames: [
+                '',
+                'Name',
+                'Description',
+                'Import type',
+                'Last Modified On'
+            ],            
+            colModel: [
+                {name: 'id', index: 'id', width: 50},
+                {name: 'name', index: 'name', width: 180},
+                {name: 'description', index: 'description', width: 200},
+                {name: 'importSettings.importType', index: 'importSettings.importType', width: 180},
+                {name: 'lastModifiedDate', index: 'lastModifiedDate', width: 200}
+            ],
+            viewrecords: true,
+            multiselect: true,
+            multiselectWidth: 30,
+            prmNames: {
+                page: 'pageNO',
+                rows: 'pageSize'
+            }
+        })
+
+        $('#add').on('click', function(){
+            console.log(testData.length)
+            testData.unshift({id: 5,
+             name: "Oleg",
+             description:'test002',
+              importSettings:{
+                importType: 'mask'
+            },
+            lastModifiedDate: '1234567'
+            });
+            console.log('success');
+            console.log(testData)
+            console.log(testData.length)
+            $('#gridTable').clearGridData(true); 
+            var result = JSON.parse(JSON.stringify(testData))
+            console.log('result', result)
+            $('#gridTable').setGridParam({ data: testData, rowNum: testData.length }).trigger('reloadGrid');
+        })
+    })
+</script>
+</html>

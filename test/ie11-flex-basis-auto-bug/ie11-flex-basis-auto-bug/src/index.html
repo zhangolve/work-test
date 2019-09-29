@@ -1,0 +1,35 @@
+<div class="page-wrapper">
+  <div class="flex">
+    <div class="flex__item flex__item--fill">
+      <div class="sub-flex">
+        <div class="sub-flex__item sub-flex__item--fixed">   
+        Image
+        </div>
+        <div class="sub-flex__item">    
+          In this example <code>flex__item--fill</code> has a flex-basis of auto. When nested inside another flex element, IE11 breaks and the text will be on one line.
+        </div>
+      </div>
+    </div>
+    <div class="flex__item">
+      <span class="button">Small button</span>
+    </div>
+  </div>
+</div>
+
+<div class="page-wrapper">
+  <div class="flex">
+    <div class="flex__item flex__item--fill flex__item--fill-ie">
+      <div class="sub-flex">
+        <div class="sub-flex__item sub-flex__item--fixed">   
+        Image
+        </div>
+        <div class="sub-flex__item">    
+          In this example, the <code>flex__item--fill</code> div has a 0% flex-basis and it works as expected in IE11.
+        </div>
+      </div>
+    </div>
+    <div class="flex__item">
+      <span class="button">Small button</span>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<!-- To run the current sample code in your own environment, copy this to an html page. -->
+
+<html>
+<head>
+  <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+  <script src="https://www.jsviews.com/download/jsrender.min.js"></script>
+  <link href="https://www.jsviews.com/samples/samples.css" rel="stylesheet" />
+</head>
+<body>
+
+<script id="myTmpl" type="text/x-jsrender">
+  <b>Reverse sort strings:</b>
+  {{for colors sort=true reverse=true}}
+    {{>}}
+  {{/for}}<hr/>
+
+  <b>Sort numbers:</b>
+  <select>
+{{for test.separators }}
+    <option value="{{>}}">
+  {{>}}
+</option>
+  {{/for}}
+</select>
+
+  <hr/>
+
+  <b>Sort dates:</b>
+
+  <select>
+{{for test.encodings }}
+    <option value="{{>}}">
+  {{>}} 
+  </option>
+  {{/for}}
+</select>
+
+
+{{if !ok}}
+not ok
+{{/if}}
+
+
+
+<select>
+  <option >1</option>
+  <option {{if ok tmpl="selected" /}}>2</option>
+  <option>3</option>
+</select>
+</script>
+
+<div id="page"></div>
+
+<script>
+$.views.converters("formatDate", function(date) {
+  // Converter to format Dates
+  return date.toLocaleDateString("en-US");
+});
+
+var myTmpl = $.templates("#myTmpl"),
+
+  data = {
+    colors: [
+      "red",
+      "white",
+      "blue"
+    ],
+    amounts: [
+      33,
+      -2.333,
+      2.4,
+      -22,
+      22
+    ],
+    dates: [
+      new Date(2000, 0, 1),
+      new Date(1998, 6, 30),
+      new Date(2000, 11, 31)
+    ],
+    test: {
+    encodings:  ["UTF-8", "ISO-8859-1"],
+    separators:  ["Comma(,)", "Semicolon(;)", "Tab"]
+    },
+    ok: false
+  },
+
+  html = myTmpl.render(data);
+
+$("#page").html(html);
+</script>
+
+</body>
+</html>

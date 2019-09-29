@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .container {
+            display: flex;
+            width: 400px;
+        }
+        .item_1 {
+            flex: 0 0 200px;
+            border: 1px solid red;
+            padding-right: 10px;
+        }
+        .item_2  {
+            flex: 50 0 0%;
+            border: 1px solid green;
+        }
+        .a {
+            flex: 0 0 200px;
+            border: 1px solid red;
+            padding-right: 10px;
+        }
+        .container_2 {
+            width: 400px;
+        }
+        .solid {
+            min-width:200px;
+            border: 1px solid red;
+            display: inline-block;
+        }
+        .flex {
+            display: inline-block;
+
+        }
+        .container_3 {
+            display: flex;
+            width: 300px;
+        }
+        .container_3 .solid_3 {
+            min-width: 50px;
+        }
+        .flex_3 {
+            flex:1;
+            border: 1px solid red;
+        }
+        .container_4 {
+            display: flex;
+            width: 300px;
+        }
+        .container_4 .solid_4 {
+            max-width: 50px;
+        }
+        .flex_4 {
+            flex:1;
+            border: 1px solid red;
+        }
+        .container_5 {
+            display: flex;
+            width: 300px;
+        }
+        .container_5 .solid_5 {
+            width: 50px;
+        }
+        .flex_5 {
+            flex:1;
+            border: 1px solid red;
+        }
+        .container_6 {
+            display: flex;
+            width: 300px;
+        }
+        .flex_6 {
+            flex:1;
+            border: 1px solid red;
+        }
+        .container_6 .solid_6 {
+            flex: 0 0 50px;
+        }
+        .container_7 {
+            background: red;
+            border: 1px solid blue;
+            width: 200px;
+            word-break: normal;  /* similar to break-word,but not to chrome.  break-word not work at ie11.*/
+             /* can 't work at chrome , because not support yet .overflow-wrap: anywhere */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="item_1 a">1111119999999999999999999999</div>
+        <div class="item_2 b">test</div>
+    </div>
+    <div class="container_2">
+        <div class="solid">1111111111111111111111111111111111111111</div>
+        <div class="flex">hello</div>
+    </div>
+    <div class="container_3">
+        <div class="flex_3 solid_3">11118888888888888</div>
+        <div class="flex_3">hello</div>
+        <div class="flex_3">hello</div>
+    </div>
+    <div class="container_4">
+        <div class="flex_4 solid_4">1111</div>
+        <div class="flex_4">hello</div>
+        <div class="flex_4">hello</div>
+    </div>
+    <div class="container_5">
+        <div class="flex_5 solid_5">1111</div>
+        <div class="flex_5">hello</div>
+        <div class="flex_5">hello</div>
+    </div>
+    <div class="container_6">
+        <div class="flex_6 solid_6">11118888888888888</div>
+        <div class="flex_6">hello</div>
+        <div class="flex_6">hello</div>
+    </div>
+    <div class="container_6">
+        <div class="flex_6 solid_6">11118 888888 888888</div>
+        <div class="flex_6">hello</div>
+        <div class="flex_6">hello</div>
+    </div>
+
+    <div class="container_7"> hello hellohellohellohellohellohellohellohellohello</div>
+</body>
+</html>
+
+
+<!--
+    from container 3, we can see flex:1,just divide container width to 3 part. 
+    set min-width ,will let one part change the width. the other two part will divide remaining width.so (300-150)/2 = one part width.
+    as a comparison , container 4,on part 1, we set max-width.so the remaining width will divided two part.
+    but another comparison, container 5. on part 1,we set width prop, but the part width is also 100px.we can't just use width to change the width.
+    container 6,what is the difference between min-width and flex-basis? you can see container 6 and container3 .but maybe you can see chrome and IE11 ,to see what difference.
+    
+    总结，chrome flex: 0 0 100px,基础为100，正常情况下也是100，但是当word-break为normal的情况下，如果单词过长，造成拉伸这个block，后面的flex item会相应地向后移动，有时候回出现滚动条，
+    但是没有错位的情况，但是如果ie11的话，原来的basis还是100，但是不会再增加了，这个时候，就会造成错位。如果不使用break-all ,这两者很难达到平衡。但是如果使用break-all，又会有新的问题。
+-->
+
+
