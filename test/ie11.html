@@ -87,6 +87,19 @@
             word-break: normal;  /* similar to break-word,but not to chrome.  break-word not work at ie11.*/
              /* can 't work at chrome , because not support yet .overflow-wrap: anywhere */
         }
+        .container_8 {
+            display: flex;
+            width: 300px;
+        }
+        .flex_8 {
+            flex: 1;
+            border: 1px solid red; 
+        }
+        .container_8 .solid_8 {
+            flex: 0 ; /* container width - solid_8 width = remaining space width. so the other two block flex_8 will divide equally the remaining part.*/
+            /*if change 0 to 1, so whether the solid_8 part content width , the container will divide three part equally. */
+            /* what iit means */
+        }
     </style>
 </head>
 <body>
@@ -125,6 +138,24 @@
     </div>
 
     <div class="container_7"> hello hellohellohellohellohellohellohellohellohello</div>
+    <div class="container_8">
+         <div class="flex_8 solid_8"> hello </div>
+         <div class="flex_8"> hello </div>
+         <div class="flex_8"> hello </div>
+    </div>
+    <!--
+        https://caniuse.com/#search=hyphens
+        CSS 属性 hyphens 告知浏览器在换行时如何使用连字符连接单词。可以完全阻止使用连字符，也可以控制浏览器什么时候使用，或者让浏览器决定什么时候使用。
+
+        连字规则具有语言特定性。在 HTML 中，语言由 lang 属性决定，浏览器只会在当前属性存在且有合适的连字字典可用的情况使用连字进行连接。 在 XML 中，必须使用 xml:lang 属性。
+
+        
+    -->
+    <div class="container_9">
+            <div class="flex_9 solid_9"> hello </div>
+            <div class="flex_9"> hello </div>
+            <div class="flex_9"> hello </div>
+    </div>
 </body>
 </html>
 
@@ -138,6 +169,13 @@
     
     总结，chrome flex: 0 0 100px,基础为100，正常情况下也是100，但是当word-break为normal的情况下，如果单词过长，造成拉伸这个block，后面的flex item会相应地向后移动，有时候回出现滚动条，
     但是没有错位的情况，但是如果ie11的话，原来的basis还是100，但是不会再增加了，这个时候，就会造成错位。如果不使用break-all ,这两者很难达到平衡。但是如果使用break-all，又会有新的问题。
+    ie 浏览器下的 word-wrap 属性，与chrome等webkit内核浏览器下的overflow-wrap 属性相似。
+    IE浏览器下
+    After this change, there will show a scrollable block and word will be showed on one row if using chrome browser ,layout will not be broken .
+    2.But if using IE11 browser and no this change ,layout will be broken,because of long word.so just add a word-wrap prop to the block(chrome doesn't support word-wrap), word-wrap: break-word in IE11 just seems like break-word: break-all in chrome.
+
+    hope we can understand remaining space correctly. 
+
 -->
 
 
